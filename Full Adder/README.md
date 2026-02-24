@@ -1,21 +1,27 @@
-# Full Adder Implementation
+# Full Adder: Structural Gate-Level Implementation
 
 ### Project Overview
-This project involves the design and verification of a **Full Adder** circuit using Verilog HDL. Unlike a Half Adder, a Full Adder can handle a carry-in ($C_{in}$) from a previous stage, making it the essential building block for multi-bit ripple-carry adders and ALUs.
+This project implements a 1-bit Full Adder using **Structural Modeling** in Verilog. Instead of using high-level operators, this design explicitly instantiates logic gates (`xor`, `and`, `or`) to mirror the physical hardware architecture. This approach demonstrates a deep understanding of how binary addition is synthesized at the gate level.
 
 ---
 
 ### Repository Structure
-* **src/**: Contains the synthesizable Verilog source code for the Full Adder.
-* **tb/**: Contains the testbench for functional verification across all 8 input combinations.
+* **src/**: Contains `full_adder.v` (Structural gate-level design).
+* **tb/**: Contains the testbench for functional verification.
 
 ---
 
-### Logic Specifications
-The Full Adder logic is implemented based on the following boolean equations:
-- **Sum (S)** = A ⊕ B ⊕ $C_{in}$
-- **Carry-out ($C_{out}$)** = (A ⋅ B) + ($C_{in}$ ⋅ (A ⊕ B))
+### Hardware Logic Design
+The module is designed using the following internal gate connections:
+- **XOR (x1):** Generates intermediate sum ($s1$) from inputs $A$ and $B$.
+- **AND (a1):** Generates intermediate carry ($s2$) from $A$ and $B$.
+- **XOR (x2):** Generates final **Sum** from $C_{in}$ and $s1$.
+- **AND (a2):** Generates intermediate carry ($s3$) from $s1$ and $C_{in}$.
+- **OR (c0):** Combines $s2$ and $s3$ to produce the final **Carry-out** ($C_{out}$).
 
+
+
+### Truth Table
 | A | B | Cin | Sum (S) | Carry-out (Cout) |
 |---|---|:---:|:---:|:---:|
 | 0 | 0 | 0 | 0 | 0 |
@@ -27,17 +33,12 @@ The Full Adder logic is implemented based on the following boolean equations:
 | 1 | 1 | 0 | 0 | 1 |
 | 1 | 1 | 1 | 1 | 1 |
 
-
-
-[Image of Full Adder logic diagram and truth table]
-
-
 ---
 
 ### Implementation Details
 * **HDL:** Verilog HDL
-* **Modeling Style:** Behavioral modeling using `assign` statements or structural modeling using Half Adder components.
-* **Tools:** Designed and simulated in **Xilinx Vivado**.
+* **Modeling Style:** Structural / Gate-Level Modeling
+* **EDA Tool:** Xilinx Vivado
 
-### Verification Results
-I verified the design by simulating all 8 possible input combinations (000 to 111) to ensure the Sum and Carry-out outputs match the mathematical truth table.
+### Verification
+The design was verified through behavioral simulation to confirm that the structural gate connections produce the correct arithmetic results.
