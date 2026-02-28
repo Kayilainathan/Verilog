@@ -30,4 +30,4 @@ Verification was performed by simulating various 4-bit additions to ensure the c
 
 * **RTL Schematic:**
 The schematic shows the chain of four `full_adder` blocks connected via the carry path.
-![Schematic](./docs/ripple_adder_rtl.png)
+![Schematic](./schematic/schematic.pdf)
